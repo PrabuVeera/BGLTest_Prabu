@@ -1,0 +1,49 @@
+﻿@model BGLTest.Models.User
+@{
+    ViewBag.Title = "User";
+}
+
+
+@{
+    var user = (BGLTest.Models.User)ViewData[BGLTest.Utils.UserSearchResultKey];
+    if (user != null)
+    {
+        <h1>@user.Login</h1>
+        <h2>Location : @user.Location</h2>
+        <img src=@user.Avatar_url />
+         
+        var userRepos = (BGLTest.Models.UserRepo[])ViewData[BGLTest.Utils.UserReposResultKey];
+        if (userRepos == null || userRepos.Count() == 0)
+        {
+            <p>No Repos found for the user.</p>
+        }
+        else
+        {
+            <p>Repos of the user</p>
+            <table>
+                <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>URL</th>
+                    <th>Number of Stargazers</th>
+                </tr>
+                @foreach (var usrRepo in userRepos)
+                {
+                    <tr>
+                        <td>@usrRepo.Name</td>
+                        <td>@usrRepo.Description</td>
+                        <td><a href="@usrRepo.Html_url">@usrRepo.Html_url</a></td>
+                        <td>@usrRepo.Stargazers_count</td>
+                    </tr>
+                }
+            </table>
+        }
+    }
+    else
+    {
+        <h2>Invalid user</h2>
+    }
+}
+
+
+

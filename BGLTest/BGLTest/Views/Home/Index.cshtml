@@ -1,0 +1,41 @@
+﻿@model BGLTest.Models.UserSearchDetails
+@{
+    ViewBag.Title = "User Search";
+}
+@section featured {
+    <section class="featured">
+        <div class="content-wrapper">
+            <hgroup class="title">
+                <h1>@ViewBag.Title.</h1>
+                <h2>@ViewBag.Message</h2>
+            </hgroup>            
+        </div>
+    </section>
+}
+@using (Html.BeginForm("SearchUser", "Home", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary()
+
+    <fieldset>
+        <legend>User Form</legend>
+        <ol>
+            <li>
+                @Html.LabelFor(m => m.SearchBaseUrl, "Search Url")
+                @Html.TextBoxFor(m => m.SearchBaseUrl, new { @Value = "https://api.github.com/users/", @readonly = "readonly" })
+            </li>
+
+            <li>
+                @Html.LabelFor(m => m.UserNameToSearch, "Please enter the user name to search")
+                @Html.TextBoxFor(m => m.UserNameToSearch)
+                @Html.ValidationMessageFor(m => m.UserNameToSearch, "", new { @class = "text-danger" })
+            </li>
+            <li>
+                @Html.LabelFor(m => m.NumberOfReposToGet, "Number of repos to be displayed")
+                @Html.DropDownListFor(m => m.NumberOfReposToGet, BGLTest.Models.UserSearchDetails.GetListItems() )
+            </li>
+            
+        </ol>
+        <input type="submit" value="Submit"/>
+    </fieldset>
+}
