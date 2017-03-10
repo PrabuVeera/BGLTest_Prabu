@@ -94,9 +94,9 @@ namespace BGLTest.Models
         public int Following { get; set; }
 
         [JsonProperty("created_at")]
-        public DateTime Created_at { get; set; }
+        public string Created_at { get; set; }
 
         [JsonProperty("updated_at")]
-        public DateTime Updated_at { get; set; }
+        public string Updated_at { get; set; }
     }
 }
